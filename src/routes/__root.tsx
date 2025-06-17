@@ -99,7 +99,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <div className="p-4 flex flex-col items-center">
           <button
             onClick={handleScan}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold mt-32 px-6 py-2 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold mt-32 px-6 py-2 rounded"
           >
             Scan for hotels, airbnbs, and beds
           </button>
