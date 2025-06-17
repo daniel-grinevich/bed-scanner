@@ -78,68 +78,54 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const [loading, setLoading] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false);
+
+  const handleScan = () => {
+    setLoading(true);
+    // simulate async work
+    setTimeout(() => {
+      setLoading(false);
+      setShowModal(true);
+    }, 2000);
+  };
+
   return (
     <html>
       <head>
         <HeadContent />
       </head>
       <body>
-        <div className="p-2 flex gap-2 text-lg">
-          <Link
-            to="/"
-            activeProps={{
-              className: 'font-bold',
-            }}
-            activeOptions={{ exact: true }}
+        <div className="p-4 flex flex-col items-center">
+          <button
+            onClick={handleScan}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold mt-32 px-6 py-2 rounded"
           >
-            Home
-          </Link>{' '}
-          <Link
-            to="/posts"
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            Posts
-          </Link>{' '}
-          <Link
-            to="/users"
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            Users
-          </Link>{' '}
-          <Link
-            to="/route-a"
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            Pathless Layout
-          </Link>{' '}
-          <Link
-            to="/deferred"
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            Deferred
-          </Link>{' '}
-          <Link
-            // @ts-expect-error
-            to="/this-route-does-not-exist"
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            This Route Does Not Exist
-          </Link>
+            Scan for hotels, airbnbs, and beds
+          </button>
+
+          {loading && (
+            <div className="mt-4">
+              <div className="w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin" />
+            </div>
+          )}
         </div>
-        <hr />
         {children}
         <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
+        {showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm text-center text-black">
+              <h2 className="text-2xl font-bold mb-4">FUCK YOU GEORGE!</h2>
+              <button
+                onClick={() => setShowModal(false)}
+                className="mt-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </body>
     </html>
   )
